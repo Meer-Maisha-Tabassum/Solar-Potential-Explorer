@@ -6,9 +6,7 @@
   # The base directory for the frontend project
   base = "frontend"
 
-# This rule forwards any request from your frontend starting with /api/
-# to your live backend server. This is crucial for your app to work.
 [[redirects]]
   from = "/api/*"
-  to = "https://solar-explorer-backend.onrender.com/"
+  to = "https://solar-explorer-backend.onrender.com/api/:splat"
   status = 200

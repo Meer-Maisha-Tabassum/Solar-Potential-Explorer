@@ -24,15 +24,12 @@ router.get('/dashboard', async (req: Request, res: Response, next: NextFunction)
 
 /**
  * @route   GET /api/weather-forecast
- * @desc    Get 7-day solar generation forecast for a given location
+ * @desc    Get 7-day solar generation forecast
  */
 router.get('/weather-forecast', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { latitude, longitude } = req.query;
-    const forecast = await weatherService.getForecastedGeneration({
-        latitude: latitude ? Number(latitude) : undefined,
-        longitude: longitude ? Number(longitude) : undefined
-    });
+    // Pass latitude and longitude as required by the service.
+    const forecast = await weatherService.getForecastedGeneration({ latitude: undefined, longitude: undefined });
     res.json(forecast);
   } catch (error) {
     next(error);

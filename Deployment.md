@@ -66,9 +66,8 @@ Now we'll deploy your React application and connect it to the live backend.
 #### **Step 1: Create the Netlify Configuration File**
 1.  In your project on your local machine, go into the `frontend` folder.
 2.  Create a new file named `netlify.toml`.
-3.  Copy the code from the `frontend/netlify.toml` file I provided in the Canvas and paste it into this new file.
-4.  **IMPORTANT:** In the `netlify.toml` file, replace the placeholder `https://your-backend-url.onrender.com` with the actual live URL of your backend that you copied from Render.
-5.  Save the file, and commit and push this new file to your GitHub repository.
+3.  **IMPORTANT:** In the `netlify.toml` file, replace the placeholder `https://your-backend-url.onrender.com` with the actual live URL of your backend that you copied from Render.
+4.  Save the file, and commit and push this new file to your GitHub repository.
 
 #### **Step 2: Set Up Netlify**
 1.  **Create an Account:** Sign up for a free account at [netlify.com](https://netlify.com) using your GitHub account.

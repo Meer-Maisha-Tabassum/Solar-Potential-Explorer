@@ -230,3 +230,5 @@ You will need two separate terminals to run both the backend and frontend server
     - The frontend application will now be running on `http://localhost:4321`.
 
 3. **View the Application**: Open your web browser and go to **`http://localhost:4321`**. The full application should be running.
+4. **View the Live Application**: Open your web browser and go to **`https://solar-potential-explorer.netlify.app/`**.
+   

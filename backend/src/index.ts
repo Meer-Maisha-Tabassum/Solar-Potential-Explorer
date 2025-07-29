@@ -2,6 +2,10 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import apiRouter from './api';
+import dns from 'dns'; // Import the dns module
+
+// FIX: Prioritize IPv4 DNS resolution, which is more reliable on many hosting platforms.
+dns.setDefaultResultOrder('ipv4first');
 
 dotenv.config();
 
@@ -16,10 +20,10 @@ app.use('/api', apiRouter);
 
 // Global error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

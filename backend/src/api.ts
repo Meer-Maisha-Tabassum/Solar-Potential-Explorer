@@ -11,15 +11,15 @@ const router = Router();
  * @desc    Get all pre-calculated data for the main dashboard
  */
 router.get('/dashboard', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const data = await projectDataService.getDashboardData();
-        if (!data) {
-            return res.status(404).json({ error: 'Dashboard data not found. Please seed the database.' });
-        }
-        res.json(data);
-    } catch (error) {
-        next(error);
+  try {
+    const data = await projectDataService.getDashboardData();
+    if (!data) {
+      return res.status(404).json({ error: 'Dashboard data not found. Please seed the database.' });
     }
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
 });
 
 /**
@@ -27,19 +27,16 @@ router.get('/dashboard', async (req: Request, res: Response, next: NextFunction)
  * @desc    Get 7-day solar generation forecast for a given location
  */
 router.get('/weather-forecast', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        // Read coordinates from the query string
-        const { lat, lon } = req.query;
-        const latitude = lat ? parseFloat(lat as string) : undefined;
-        const longitude = lon ? parseFloat(lon as string) : undefined;
-
-        // Pass coordinates to the service
-        const forecast = await weatherService.getForecastedGeneration({ latitude, longitude });
-        res.json(forecast);
-    } catch (error) {
-        console.error("Failed to get weather forecast");
-        next(error);
-    }
+  try {
+    const { latitude, longitude } = req.query;
+    const forecast = await weatherService.getForecastedGeneration({
+        latitude: latitude ? Number(latitude) : undefined,
+        longitude: longitude ? Number(longitude) : undefined
+    });
+    res.json(forecast);
+  } catch (error) {
+    next(error);
+  }
 });
 
 /**
@@ -55,12 +52,12 @@ const validateContactForm = (req: Request, res: Response, next: NextFunction) =>
 };
 
 router.post('/contact', validateContactForm, async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        await contactService.sendContactEmail(req.body);
-        res.status(200).json({ message: 'Email sent successfully!' });
-    } catch (error) {
-        next(error);
-    }
+  try {
+    await contactService.sendContactEmail(req.body);
+    res.status(200).json({ message: 'Email sent successfully!' });
+  } catch (error) {
+    next(error);
+  }
 });
 
 /**

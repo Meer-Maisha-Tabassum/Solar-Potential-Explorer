@@ -1,24 +1,28 @@
 import axios from 'axios';
 import { getRawProjectData } from './projectData.service';
 
-const get7DayForecast = async () => {
-    const lat = 3.1412;
-    const lon = 101.6865;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=cloudcover_mean&timezone=Asia%2FSingapore`;
-
-    type WeatherData = {
-        daily: {
-            time: string[];
-            cloudcover_mean: number[];
-        };
+type WeatherData = {
+    daily: {
+        time: string[];
+        cloudcover_mean: number[];
     };
-    const weatherResponse = await axios.get<WeatherData>(url);
-    return weatherResponse.data;
 };
 
-export const getForecastedGeneration = async (p0: { latitude: number | undefined; longitude: number | undefined; }) => {
+const get7DayForecast = async (): Promise<{ weatherData: WeatherData, locationName: string }> => {
+    const lat = 3.1412; // Default to Kuala Lumpur
+    const lon = 101.6865;
+    
+    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=cloudcover_mean&timezone=auto`;
+    const weatherResponse = await axios.get(weatherUrl);
+    
+    const locationName = 'Kuala Lumpur'; // Hardcoded for default
+
+    return { weatherData: weatherResponse.data as WeatherData, locationName };
+};
+
+export const getForecastedGeneration = async () => {
     try {
-        const [weatherData, projectData] = await Promise.all([
+        const [{ weatherData, locationName }, projectData] = await Promise.all([
             get7DayForecast(),
             getRawProjectData()
         ]);
@@ -38,7 +42,7 @@ export const getForecastedGeneration = async (p0: { latitude: number | undefined
             };
         });
 
-        return forecast;
+        return { forecast, locationName };
 
     } catch (error) {
         console.error("Error in getForecastedGeneration service:", error);

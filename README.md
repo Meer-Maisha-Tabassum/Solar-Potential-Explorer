@@ -129,7 +129,7 @@ Before you begin, ensure you have the following software installed on your compu
 3. Clone the repository using Git:
 
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/Meer-Maisha-Tabassum/Solar-Potential-Explorer.git
     cd solar-potential-explorer
     ```
 

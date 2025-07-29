@@ -28,8 +28,8 @@ router.get('/dashboard', async (req: Request, res: Response, next: NextFunction)
  */
 router.get('/weather-forecast', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Pass latitude and longitude as required by the service.
-    const forecast = await weatherService.getForecastedGeneration({ latitude: undefined, longitude: undefined });
+    // FIX: Call the function without arguments to match the service file.
+    const forecast = await weatherService.getForecastedGeneration();
     res.json(forecast);
   } catch (error) {
     next(error);
